@@ -91,7 +91,7 @@ export function Hero() {
             </div>
             <div className="flex flex-col gap-2">
               <Award className="w-6 h-6 text-teal-400" />
-              <p className="text-white font-bold text-lg">10+ Years</p>
+              <p className="text-white font-bold text-lg">18+ Years</p>
               <p className="text-slate-400 text-sm">Experience</p>
             </div>
             <div className="flex flex-col gap-2">
