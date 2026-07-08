@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Amar Dental Clinic"
+version = "1.0.0"
+id = "artifacts/amar-dental"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20129
+
+[services.development]
+run = "pnpm --filter @workspace/amar-dental run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/amar-dental", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/amar-dental/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20129"
+BASE_PATH = "/"
