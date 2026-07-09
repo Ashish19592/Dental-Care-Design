@@ -1,67 +1,44 @@
 import path from 'path';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
-
 import { defineConfig } from 'vite';
 
+const basePath = process.env.BASE_PATH || '/';
 
-
-
-
-  
-
-
-
-process.env.BASE_PATH || "/";
-  export default defineConfig({
+export default defineConfig({
   base: basePath,
-    
-plugins: [
+  plugins: [
     react(),
     tailwindcss(),
-
-    ...(process.env.NODE_ENV !== 'production' &&
-    process.env.REPL_ID !== undefined
+    ...(process.env.NODE_ENV !== 'production' && process.env.REPL_ID !== undefined
       ? [
           await import('@replit/vite-plugin-cartographer').then((m) =>
-            m.cartographer({
-              root: path.resolve(import.meta.dirname, '..'),
-            }),
+            m.cartographer({ root: path.resolve(import.meta.dirname, '..') }),
           ),
-          await import('@replit/vite-plugin-dev-banner').then((m) =>
-            m.devBanner(),
-          ),
+          await import('@replit/vite-plugin-dev-banner').then((m) => m.devBanner()),
         ]
       : []),
   ],
   resolve: {
     alias: {
       '@': path.resolve(import.meta.dirname, 'src'),
-      '@assets': path.resolve(
-        import.meta.dirname,
-        '..',
-        '..',
-        'attached_assets',
-      ),
+      '@assets': path.resolve(import.meta.dirname, '..', '..', 'attached_assets'),
     },
     dedupe: ['react', 'react-dom'],
   },
   root: path.resolve(import.meta.dirname),
   build: {
-outDir: path.resolve(import.meta.dirname, 'dist'),
-    
+    outDir: path.resolve(import.meta.dirname, 'dist'),
     emptyOutDir: true,
   },
   server: {
- strictPort   strictPort: true,
+    port: parseInt(process.env.PORT || '5173'),
+    strictPort: true,
     host: '0.0.0.0',
     allowedHosts: true,
-    fs: {
-      strict: true,
-    },
+    fs: { strict: true },
   },
   preview: {
-
     host: '0.0.0.0',
     allowedHosts: true,
   },
