@@ -1,0 +1,14 @@
+[build]
+  command       = "pnpm --filter @workspace/amar-dental run build"
+  publish       = "artifacts/amar-dental/dist"
+  ignore        = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- artifacts/amar-dental attached_assets"
+
+[build.environment]
+  NODE_VERSION  = "20"
+  PNPM_VERSION  = "10.26.1"
+  BASE_PATH     = "/"
+
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
