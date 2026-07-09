@@ -1,31 +1,70 @@
 import { motion } from 'framer-motion';
-import { Facebook, Instagram, Linkedin, Mail } from 'lucide-react';
-import doc1 from '@assets/generated_images/doc-1.jpg';
-import doc2 from '@assets/generated_images/doc-2.jpg';
-import doc3 from '@assets/generated_images/doc-3.jpg';
+import { Stethoscope } from 'lucide-react';
 
 const doctors = [
   {
     name: "Dr. Avinash Singh",
     qual: "BDS, MDS",
-    exp: "18+ Years Experience",
-    spec: "Lead dentist at Amar Dental Clinic. Specialist in root canal treatment, dental implants, and cosmetic dentistry. Praised by patients for being calm, humble, and hardworking — always putting patient comfort first.",
-    img: doc1
+    role: "Oral Physician & Radiologist",
+    initials: "AS",
+    color: "bg-blue-100 text-blue-700",
+    accent: "border-blue-200",
+    exp: "18+ Years",
   },
   {
-    name: "Dr. Priya Sharma",
+    name: "Dr. Raj Kumar Singh",
+    qual: "BDS, MDS",
+    role: "Consulting Orthodontist",
+    initials: "RK",
+    color: "bg-teal-100 text-teal-700",
+    accent: "border-teal-200",
+    exp: "",
+  },
+  {
+    name: "Dr. Vimanyu Kataria",
+    qual: "BDS, MDS",
+    role: "Consulting Oral Surgeon & Implantologist",
+    initials: "VK",
+    color: "bg-purple-100 text-purple-700",
+    accent: "border-purple-200",
+    exp: "",
+  },
+  {
+    name: "Dr. Jitender",
+    qual: "BDS, MDS",
+    role: "Consulting Oral Surgeon",
+    initials: "JT",
+    color: "bg-orange-100 text-orange-700",
+    accent: "border-orange-200",
+    exp: "",
+  },
+  {
+    name: "Dr. Pranav Sharma",
+    qual: "BDS, PGCE IGNOU",
+    role: "Consulting Endodontist",
+    initials: "PS",
+    color: "bg-pink-100 text-pink-700",
+    accent: "border-pink-200",
+    exp: "",
+  },
+  {
+    name: "Dr. Abhishek Shekhar",
+    qual: "BDS, MDS",
+    role: "Consulting Prosthodontist & Implantologist",
+    initials: "AB",
+    color: "bg-green-100 text-green-700",
+    accent: "border-green-200",
+    exp: "",
+  },
+  {
+    name: "Dr. Pooja Tiwari",
     qual: "BDS",
-    exp: "7+ Years Experience",
-    spec: "Expert in children's dentistry, preventive care, and teeth cleaning. Gentle approach for patients of all ages.",
-    img: doc2
+    role: "Dental Surgeon",
+    initials: "PT",
+    color: "bg-rose-100 text-rose-700",
+    accent: "border-rose-200",
+    exp: "",
   },
-  {
-    name: "Dr. Rohan Mehta",
-    qual: "BDS, MDS (Oral Surgery)",
-    exp: "8+ Years Experience",
-    spec: "Specialist in oral surgery, wisdom tooth extraction, and dental prosthetics. Trained in advanced surgical techniques.",
-    img: doc3
-  }
 ];
 
 export function Doctors() {
@@ -41,7 +80,7 @@ export function Doctors() {
           >
             Our Specialists
           </motion.div>
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -50,46 +89,46 @@ export function Doctors() {
           >
             Meet Our Dental Team
           </motion.h2>
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            A panel of experienced specialists dedicated to providing you the best dental care.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {doctors.map((doc, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.15 }}
-              className="bg-slate-50 rounded-[2rem] overflow-hidden group border border-slate-100 hover:shadow-xl transition-all"
+              transition={{ delay: idx * 0.08 }}
+              className={`bg-white rounded-2xl p-6 border-2 ${doc.accent} hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center group`}
             >
-              <div className="aspect-[4/5] relative overflow-hidden bg-slate-200">
-                <img 
-                  src={doc.img} 
-                  alt={doc.name} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+              {/* Avatar with initials */}
+              <div className={`w-20 h-20 rounded-full ${doc.color} flex items-center justify-center text-2xl font-bold mb-5 group-hover:scale-110 transition-transform duration-300 shrink-0`}>
+                {doc.initials}
               </div>
-              <div className="p-8 text-center bg-white relative -mt-8 mx-4 rounded-2xl shadow-sm border border-slate-100">
-                <h3 className="text-xl font-bold text-slate-900 mb-1">{doc.name}</h3>
-                <p className="text-primary font-semibold text-sm mb-3">{doc.qual}</p>
-                <div className="inline-block bg-slate-100 text-slate-600 text-xs font-bold px-3 py-1 rounded-full mb-4">
-                  {doc.exp}
+
+              {/* Name */}
+              <h3 className="text-base font-bold text-slate-900 mb-1 leading-tight">
+                {doc.name}
+              </h3>
+
+              {/* Qualification */}
+              <p className="text-xs font-semibold text-primary mb-2">{doc.qual}</p>
+
+              {/* Role badge */}
+              <span className={`inline-block text-xs font-medium px-3 py-1 rounded-full ${doc.color} leading-relaxed`}>
+                {doc.role}
+              </span>
+
+              {/* Experience (only for lead doctor) */}
+              {doc.exp && (
+                <div className="mt-3 flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+                  <Stethoscope className="w-3.5 h-3.5" />
+                  {doc.exp} Experience
                 </div>
-                <p className="text-slate-600 text-sm mb-6 leading-relaxed">
-                  {doc.spec}
-                </p>
-                <div className="flex items-center justify-center gap-4">
-                  <a href="#" className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-primary hover:text-white transition-colors">
-                    <Facebook className="w-4 h-4" />
-                  </a>
-                  <a href="#" className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-primary hover:text-white transition-colors">
-                    <Instagram className="w-4 h-4" />
-                  </a>
-                  <a href="#" className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-primary hover:text-white transition-colors">
-                    <Linkedin className="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
+              )}
             </motion.div>
           ))}
         </div>
